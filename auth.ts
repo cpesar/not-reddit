@@ -33,4 +33,7 @@ export const {
       return session;
     },
   },
+  trustHost: true,
+  secret: process.env.NEXTAUTH_SECRET,
+  // debug: true,
 });
