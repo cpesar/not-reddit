@@ -6,7 +6,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from "@/lib/constants";
 
-import Header from "@/components/ui/header";
+import Header from "@/components/shared/header/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
