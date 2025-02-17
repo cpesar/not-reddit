@@ -10,6 +10,8 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
   throw new Error("Missing github oauth credentials");
 }
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export const {
   handlers: { GET, POST },
   auth,
@@ -21,6 +23,13 @@ export const {
     GitHub({
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
+      authorization: {
+        params: {
+          redirect_uri: isDevelopment
+            ? "http://localhost:3000/api/auth/callback/github"
+            : "https://not-reddit-alpha.vercel.app/api/auth/callback/github",
+        },
+      },
     }),
   ],
   callbacks: {
@@ -32,7 +41,7 @@ export const {
       return session;
     },
   },
-  debug: true,
+  debug: isDevelopment,
   trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
 });
