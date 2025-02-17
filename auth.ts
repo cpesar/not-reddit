@@ -24,7 +24,6 @@ export const {
     }),
   ],
   callbacks: {
-    // Fixes NextAuth bug
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, user }: any) {
       if (session && user) {
@@ -33,7 +32,7 @@ export const {
       return session;
     },
   },
+  debug: true,
   trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
-  // debug: true,
 });
