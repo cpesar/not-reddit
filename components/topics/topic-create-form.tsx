@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, startTransition } from "react";
+import { useActionState, startTransition, useState, useEffect } from "react";
 import {
   Input,
   Button,
@@ -11,22 +11,33 @@ import {
   Form,
 } from "@heroui/react";
 import { createTopic } from "@/lib/actions/create-topic.action";
+import FormButton from "../common/form-button";
+import { set } from "zod";
 
 const TopicCreateForm = () => {
-  const [formState, action] = useActionState(createTopic, {
+  const [isOpen, setIsOpen] = useState(false);
+  const [formState, action, isPending] = useActionState(createTopic, {
     errors: {},
   });
+
+  // Watch formState.success and close the popover when it changes to true
+  useEffect(() => {
+    if (formState.success) {
+      setIsOpen(false);
+    }
+  }, [formState.success]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
     startTransition(() => {
       action(formData);
     });
   }
 
   return (
-    <Popover placement="left">
+    <Popover placement="left" isOpen={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger>
         <Button color="primary">Create a Topic</Button>
       </PopoverTrigger>
@@ -50,7 +61,7 @@ const TopicCreateForm = () => {
               isInvalid={!!formState.errors.description}
               errorMessage={formState.errors.description?.join(", ")}
             />
-            <Button type="submit">Submit</Button>
+            <FormButton isLoading={isPending}>Submit</FormButton>
           </div>
         </Form>
       </PopoverContent>

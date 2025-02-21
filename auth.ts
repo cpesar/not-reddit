@@ -41,7 +41,7 @@ export const {
       return session;
     },
   },
-  debug: isDevelopment,
+  // debug: isDevelopment,
   trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
 });

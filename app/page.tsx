@@ -1,4 +1,5 @@
-import TopicCreateForm from "../components/forms/topic-create-form";
+import TopicCreateForm from "../components/topics/topic-create-form";
+import TopicList from "@/components/topics/topic-list";
 
 const HomePage = () => {
   return (
@@ -8,6 +9,7 @@ const HomePage = () => {
       </div>
       <div>
         <TopicCreateForm />
+        <TopicList />
       </div>
     </div>
   );
