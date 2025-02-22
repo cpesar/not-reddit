@@ -1,15 +1,17 @@
-//
 "use server";
 
 import { prisma } from "@/db/prisma";
 import { createTopicSchema } from "@/lib/validators";
 import { revalidatePath } from "next/cache";
 import { slugify } from "../utils/utils";
+import { auth } from "@/auth";
+import { Topic } from "@prisma/client";
 
 interface CreateTopicFormState {
   errors: {
     name?: string[];
     description?: string[];
+    _form?: string[];
   };
   success?: boolean;
 }
@@ -30,9 +32,19 @@ export async function createTopic(
       success: false,
     };
   }
+  const session = await auth();
+  if (!session || !session.user || !session.user.id) {
+    return {
+      errors: {
+        _form: ["You must be logged in to create a topic"],
+      },
+      success: false,
+    };
+  }
 
+  let topic: Topic;
   try {
-    await prisma.topic.create({
+    topic = await prisma.topic.create({
       data: {
         slug: slugify(result.data.name),
         description: result.data.description,
@@ -46,12 +58,18 @@ export async function createTopic(
       success: true,
     };
   } catch (error) {
-    console.error("Failed to create topic:", error);
-    return {
-      errors: {
-        name: ["Failed to create topic"],
-      },
-      success: false,
-    };
+    if (error instanceof Error) {
+      return {
+        errors: {
+          _form: [error.message],
+        },
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Failed to create topic"],
+        },
+      };
+    }
   }
 }

@@ -5,13 +5,13 @@ import { Button } from "@heroui/react";
 
 interface FormButtonProps {
   children: React.ReactNode;
-  isLoading?: boolean;
+  isPending?: boolean;
 }
 
-const FormButton = ({ children, isLoading }: FormButtonProps) => {
+const FormButton = ({ children, isPending }: FormButtonProps) => {
   //   const { pending } = useFormStatus();
   return (
-    <Button type="submit" isLoading={isLoading}>
+    <Button type="submit" isLoading={isPending}>
       {children}
     </Button>
   );
