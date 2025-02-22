@@ -3,6 +3,7 @@ import PostShow from "@/components/posts/post-show";
 import CommentList from "@/components/comments/comment-list";
 import CommentCreateForm from "@/components/comments/comment-create-form";
 import paths from "@/app/paths/paths";
+import { getPostsByPostId } from "@/db/queries/comments";
 
 interface PostShowPageProps {
   params: Promise<{
@@ -21,7 +22,7 @@ export default async function PostShowPage({ params }: PostShowPageProps) {
       </Link>
       <PostShow postId={postId} />
       <CommentCreateForm postId={postId} startOpen />
-      {/* <CommentList comments={comments} /> */}
+      <CommentList fetchData={() => getPostsByPostId(postId)} />
     </div>
   );
 }

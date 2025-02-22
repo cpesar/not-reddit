@@ -2,15 +2,14 @@ import Image from "next/image";
 import { Button } from "@heroui/react";
 import CommentCreateForm from "@/components/comments/comment-create-form";
 import { prisma } from "@/db/prisma";
+import { CommentWithAuthor } from "@/db/queries/comments";
 
 interface CommentShowProps {
   commentId: string;
+  comments: CommentWithAuthor[];
 }
 
-// TODO: Get a list of comments
-export default async function CommentShow({ commentId }: CommentShowProps) {
-  const comments = await prisma.comment.findMany({});
-
+export default function CommentShow({ commentId, comments }: CommentShowProps) {
   const comment = comments.find((c) => c.id === commentId);
 
   if (!comment) {
@@ -20,11 +19,7 @@ export default async function CommentShow({ commentId }: CommentShowProps) {
   const children = comments.filter((c) => c.parentId === commentId);
   const renderedChildren = children.map((child) => {
     return (
-      <CommentShow
-        key={child.id}
-        commentId={child.id}
-        // comments={comments}
-      />
+      <CommentShow key={child.id} commentId={child.id} comments={comments} />
     );
   });
 

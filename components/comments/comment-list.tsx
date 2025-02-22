@@ -1,11 +1,13 @@
 import { prisma } from "@/db/prisma";
 import CommentShow from "./comment-show";
+import { CommentWithAuthor } from "@/db/queries/comments";
 
-interface CommentListProps {}
+interface CommentListProps {
+  fetchData: () => Promise<CommentWithAuthor[]>;
+}
 
-// TODO: Get a list of comments from somewhere
-export default async function CommentList({}: CommentListProps) {
-  const comments = await prisma.comment.findFirst({});
+export default async function CommentList({ fetchData }: CommentListProps) {
+  const comments = await fetchData();
 
   const topLevelComments = comments.filter(
     (comment) => comment.parentId === null
