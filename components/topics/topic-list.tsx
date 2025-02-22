@@ -12,7 +12,7 @@ export default async function TopicList() {
 
   const renderedTopics = topics.map((topic) => {
     return (
-      <div key={topic.id}>
+      <div key={topic.id} className="">
         <Link href={paths.topicShow(topic.slug)}>
           <Chip color="warning" variant="shadow">
             {topic.slug}
@@ -21,5 +21,5 @@ export default async function TopicList() {
       </div>
     );
   });
-  return <div className="flex flex-row gap-2">{renderedTopics}</div>;
+  return <div className="flex flex-wrap flex-row gap-2">{renderedTopics}</div>;
 }
