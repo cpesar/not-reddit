@@ -11,7 +11,6 @@ import {
   Form,
 } from "@heroui/react";
 import { createPost } from "@/lib/actions/create-post.action";
-
 import FormButton from "../common/form-button";
 
 type PostCreateFormProps = {
