@@ -1,6 +1,5 @@
 import { prisma } from "@/db/prisma";
 import { notFound } from "next/navigation";
-import { getPostsByPostId } from "@/db/queries/comments";
 
 interface PostShowProps {
   postId: string;
