@@ -7,6 +7,8 @@ interface CommentListProps {
 }
 
 export default async function CommentList({ postId }: CommentListProps) {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const comments = await getCommentsByPostId(postId);
 
   const topLevelComments = comments.filter(

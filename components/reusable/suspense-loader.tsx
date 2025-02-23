@@ -1,6 +1,6 @@
 import { Skeleton } from "@heroui/react";
 
-const PostShowLoading = () => {
+const SuspenseLoader = () => {
   return (
     <div className="m-4">
       <div className="my-2">
@@ -15,4 +15,4 @@ const PostShowLoading = () => {
   );
 };
 
-export default PostShowLoading;
+export default SuspenseLoader;
