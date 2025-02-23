@@ -11,7 +11,7 @@ import {
   Form,
 } from "@heroui/react";
 import { createTopic } from "@/lib/actions/create-topic.action";
-import FormButton from "../common/form-button";
+import FormButton from "../reusable/form-button";
 
 const TopicCreateForm = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Textarea, Button } from "@heroui/react";
-import FormButton from "@/components/common/form-button";
+import FormButton from "@/components/reusable/form-button";
 import { createComment } from "@/lib/actions/create-comment";
 
 interface CommentCreateFormProps {
@@ -51,11 +51,7 @@ const CommentCreateForm = ({
           </div>
         ) : null}
 
-        <FormButton
-        // isLoading={isPending}
-        >
-          Create Comment
-        </FormButton>
+        <FormButton isPending={isPending}>Create Comment</FormButton>
       </div>
     </form>
   );

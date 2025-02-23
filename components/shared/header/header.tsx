@@ -1,13 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Input,
-} from "@heroui/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import HeaderAuth from "./header-auth";
+import SearchInput from "./search-input";
+import { Suspense } from "react";
 
 export default function Header() {
   return (
@@ -27,7 +23,9 @@ export default function Header() {
 
       <NavbarContent justify="center">
         <NavbarItem>
-          <Input />
+          <Suspense>
+            <SearchInput />
+          </Suspense>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="-mr-12" justify="end">

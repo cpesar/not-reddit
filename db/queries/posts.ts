@@ -7,12 +7,25 @@ export type PostWithDetails = Post & {
   _count: { comments: number };
 };
 
+export function getPostsBySearchTerm(term: string): Promise<PostWithDetails[]> {
+  return prisma.post.findMany({
+    include: {
+      topic: { select: { slug: true } },
+      user: { select: { name: true, image: true } },
+      _count: { select: { comments: true } },
+    },
+    where: {
+      OR: [{ title: { contains: term } }, { content: { contains: term } }],
+    },
+  });
+}
+
 export function getPostsByTopicSlug(slug: string): Promise<PostWithDetails[]> {
   return prisma.post.findMany({
     where: { topic: { slug: slug } },
     include: {
       topic: { select: { slug: true } },
-      user: { select: { name: true } },
+      user: { select: { name: true, image: true } },
       _count: { select: { comments: true } },
     },
   });

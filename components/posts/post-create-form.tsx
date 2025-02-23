@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, startTransition, useState, useEffect } from "react";
+import { useActionState, startTransition, useState } from "react";
 import {
   Input,
   Button,
@@ -11,7 +11,7 @@ import {
   Form,
 } from "@heroui/react";
 import { createPost } from "@/lib/actions/create-post.action";
-import FormButton from "../common/form-button";
+import FormButton from "../reusable/form-button";
 
 type PostCreateFormProps = {
   slug: string;
@@ -64,11 +64,7 @@ const PostCreateForm = ({ slug }: PostCreateFormProps) => {
                 {formState.errors._form.join(", ")}
               </div>
             ) : null}
-            <FormButton
-            // isLoading={isPending}
-            >
-              Submit
-            </FormButton>
+            <FormButton isPending={isPending}>Submit</FormButton>
           </div>
         </Form>
       </PopoverContent>
